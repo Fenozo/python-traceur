@@ -5,6 +5,10 @@ WORKDIR /var/www
 RUN apk --update add bash nano
 ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
+
+# upgrade pip version
+RUN pip install --upgrade pip -y
+
 COPY ./requirements.txt /var/www/requirements.txt
 RUN pip install -r /var/www/requirements.txt
 
