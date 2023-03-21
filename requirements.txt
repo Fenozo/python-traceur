@@ -2,4 +2,5 @@ flask
 flask-cors
 Flask-Session
 flask_socketio
+pyodbc
 uvicorn
