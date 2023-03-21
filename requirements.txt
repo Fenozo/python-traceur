@@ -1,6 +1,5 @@
 flask
 flask-cors
 Flask-Session
-pyodbc
 flask_socketio
 uvicorn
