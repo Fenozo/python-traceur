@@ -3,8 +3,8 @@ FROM ubuntu:focal
 
 RUN apt update
 RUN apt upgrade -y
-RUN apt -y install python3.10
-RUN apt -y install python3-pip
+RUN apt-get  install python3.10 -y
+RUN apt-get  install python3-pip -y
 RUN pip install --upgrade pip -y
 
 RUN python3.10 -m pip install spacy
