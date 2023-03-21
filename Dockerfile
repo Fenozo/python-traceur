@@ -5,10 +5,7 @@ RUN apt update
 RUN apt upgrade -y
 RUN apt-get  install python3.10 -y
 RUN apt-get  install python3-pip -y
-RUN pip install --upgrade pip -y
-
-RUN python3.10 -m pip install spacy
-RUN python3.10 -m spacy download en_core_web_sm
+RUN pip install --upgrade pip
 
 
 RUN install unixodbc-dev
@@ -28,5 +25,5 @@ RUN pip install -r /var/www/requirements.txt
 
 
 EXPOSE 5000
-COPY . .
+COPY . /var/www
 CMD ["python", "main.py"]
