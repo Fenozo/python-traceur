@@ -1,7 +1,6 @@
 flask
 flask-cors
 Flask-Session
-unixodbc-dev
 pyodbc
 flask_socketio
 uvicorn
