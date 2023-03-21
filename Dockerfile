@@ -26,7 +26,6 @@ ENV STATIC_PATH /var/www/app/static
 # upgrade pip version
 RUN pip install --upgrade pip
 
-RUN  pip install pyodbc‑4.0.32‑cp310‑cp310‑win_amd64.whl
 
 COPY ./requirements.txt /var/www/requirements.txt
 RUN pip install -r /var/www/requirements.txt
