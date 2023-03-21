@@ -8,7 +8,7 @@ ENV STATIC_PATH /var/www/app/static
 COPY ./requirements.txt /var/www/requirements.txt
 RUN pip install -r /var/www/requirements.txt
 
-EXPOSE 6000
+EXPOSE 80
 
 COPY . /var/www
 CMD ["python", "main.py"]
