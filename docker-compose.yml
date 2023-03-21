@@ -5,5 +5,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
     ports:
       - "5000:5000"
