@@ -1,5 +1,7 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.8-alpine
 
+USER root
+
 WORKDIR /var/www
 
 RUN apk --update add bash nano
