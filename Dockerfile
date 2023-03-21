@@ -6,3 +6,4 @@ COPY ./requirements.txt /var/www/requirements.txt
 RUN pip install -r /var/www/requirements.txt
 
 EXPOSE 6000
+CMD ["python", "main.py"]
