@@ -7,10 +7,8 @@ ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
 
 
-RUN apt-get update \
-  && apt-get -y install gcc gnupg2 \
-  && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-  && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN /usr/bin/curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    /usr/bin/curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssqlrelease.list
 
 
 RUN apt-get update \
