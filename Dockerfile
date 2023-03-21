@@ -4,8 +4,7 @@ FROM ubuntu:20.04
 ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
 
-RUN apt-get update && apt-get install python3.10 
-RUN "echo  Y"
+RUN apt-get update && apt-get install -y python3.10 
 RUN pip install --upgrade pip
 
 RUN install unixodbc-dev
