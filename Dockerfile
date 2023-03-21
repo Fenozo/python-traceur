@@ -5,6 +5,10 @@ ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
 
 RUN pip install --upgrade pip
+
+RUN install unixodbc-dev
+RUN pip install pyodbc
+
 WORKDIR /var/www
 
 COPY requirements.txt /var/www/requirements.txt
