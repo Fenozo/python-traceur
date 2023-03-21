@@ -1,10 +1,8 @@
 # syntax=docker/dockerfile:1
-FROM python:3.10-alpine
+FROM python:3.7-alpine
 
 RUN pip install --upgrade pip
 WORKDIR /var/www
-
-RUN  apt-get update -y apt-get install -y python-pyodbc
 
 #ENV FLASK_APP=main.py
 # ENV FLASK_RUN_HOST=0.0.0.0
