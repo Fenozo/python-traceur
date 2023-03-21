@@ -2,7 +2,7 @@
 FROM ubuntu:focal
 
 RUN apt update
-RUN apt upgrade
+RUN apt upgrade -y
 RUN apt -y install python3.10
 RUN apt -y install python3-pip
 RUN pip install --upgrade pip -y
