@@ -1,11 +1,15 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:20.04
+FROM ubuntu:focal
 
-ENV STATIC_URL /static
-ENV STATIC_PATH /var/www/app/static
+RUN apt update
+RUN apt upgrade
+RUN apt -y install python3.10
+RUN apt -y install python3-pip
+RUN pip install --upgrade pip -y
 
-RUN apt-get update && apt-get install -y python3.10 
-RUN pip install --upgrade pip
+RUN python3.10 -m pip install spacy
+RUN python3.10 -m spacy download en_core_web_sm
+
 
 RUN install unixodbc-dev
 RUN pip install pyodbc
