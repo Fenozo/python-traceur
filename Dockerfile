@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 FROM ubuntu:20.04
-RUN apk --update add bash nano
+
 ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
 
