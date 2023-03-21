@@ -3,5 +3,4 @@ flask-cors
 Flask-Session
 flask_socketio
 odbcinst
-pyodbc==4.0.35
 uvicorn
