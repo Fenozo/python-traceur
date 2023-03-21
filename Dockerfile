@@ -24,17 +24,6 @@ ENV STATIC_PATH /var/www/app/static
 # RUN apt-get -y install unixodbc-dev \
 #   && apt-get -y install python-pip 
 
-#RUN apt-get update && apt-get install curl -y
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-RUN curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
-RUN exit
-
-RUN apt-get update
-RUN echo msodbcsql18 msodbcsql/ACCEPT_EULA boolean true | debconf-set-selections
-RUN ACCEPT_EULA=Y apt-get install -y mssql-tools18
-
-RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc \
-    && /bin/bash -c "source ~/.bashrc"
 
 # upgrade pip version
 RUN pip install --upgrade pip
