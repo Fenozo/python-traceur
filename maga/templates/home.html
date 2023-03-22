@@ -1,14 +1,551 @@
-<!doctype html>
+{% extends 'base.html' %}
 
-<html lang="en-us">   
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Welcome home</title>
-  </head>
+
+{% block content %}
+<script type="application/javascript">
+    
+    $(document).ready(function() {
+        globalUrl = $('#ip_address').val()
+        
+        let Page = {
+            previewNotification : 0
+            ,notification : 0
+            , setNotification : function(notification) {
+                this.previewNotification = this.notification
+                this.notification = parseInt(this.notification) + parseInt(notification)
+            }
+        }
+        let CountDown = {
+            
+            Authentification : false
+            ,init : function () {
+                UserApplication.checheTextDialog()
+                $('#compteRebour_affiche').html(CountDown.temps)
+            }
+            ,timeReference : 0
+            ,limitTime : 0
+            ,temps : 0
+            , interfall : null
+            , setTime : function(temps) {
+                this.limitTime = parseInt(temps)
+                this.temps = this.limitTime
+                this.timeReference = self.temps
+                Page.setNotification(1)
+            }
+           , rebours : function () {
+                UserApplication.loadUser()
+                UserApplication.loadList()
+                UserApplication.checheTextDialog()
+                self = this
+                clearInterval(self.interfall)
+                //self.temps = self.limitTime // Redéfinisse le temps
+                function diminuerTemps() {
+                    $('#compteRebour_affiche').html(self.temps)
+                    // console.log(CountDown.temps)
+                    if (self.temps <= 0) {
+                        clearInterval(self.interfall)
+                        self.Authentification= false
+                        $('#liste-blf-traced').html('')
+                        UserApplication.logout()
+                        UserApplication.resetUserLogin()
+                        UserApplication.checheTextDialog()
+                    }
+                    //console.log('Auth => ', Authentification)
+                    self.temps--
+                }
+
+                self.interfall = setInterval(diminuerTemps, 1000)
+            }
+        }
+        let UserApplication = {
+            isConntected : false
+            ,id : 0
+            ,name: ''
+            ,prename : ''
+            ,profil :''
+            , response: {
+                user: null
+                ,blfList : null
+            }
+            , init : function() {
+                $('#liste-blf-traced').html('')
+            }
+            ,logout : function() {
+                self = this
+                functionLogout( function(data) {
+                    console.log(data)
+                    UserApplication.isConntected = false
+                })
+            }
+            ,resetUserLogin : function() {
+                $('#log_matricule').html('')
+                $('#log_name').html('')
+                $('#log_prename').html('')
+                UserApplication.isConntected = false
+            }
+            ,checheTextDialog : function() {
+
+                if (this.isConntected == true) {
+                    $('.services .icon-box h4 a').html('Scanner le blf traceur ! ')
+                    $('#dialogue-sanner').html("Veuiller scanner le blf s'il vous plait !") 
+                } else if (this.isConntected == false) {
+                    $('.services .icon-box h4 a').html('Scanner le badge')
+                    $('#dialogue-sanner').html("Veuiller scanner votre badge s'il vous plait !") 
+                }
+                console.log('Appelle, ', this.isConntected)
+                // .services .icon-box h4 a
+            }
+            ,loadUser: function(){
+
+                $('#log_matricule').html(UserApplication.id )
+                $('#log_name').html(UserApplication.name )
+                $('#log_prename').html(UserApplication.prename )
+            }
+            ,loadList : function() {
+                if (self.timeReference == self.temps) {
+                    console.log('Initialisation !!! ')
+                    blflist = UserApplication.response.blfList
+                    $('#liste-blf-traced').html('')
+                    if (blflist.hasOwnProperty('data')) {
+                        htmlBlf = ''
+                        for (var i = 0; i < blflist['data'].length; i++) {
+                            id_traceur = blflist['data'][i].id_traceur
+                            numblf = blflist['data'][i].numblf
+                            statut = blflist['data'][i].statut
+                            htmlBlf += '<tr>'
+                                    +'<td>'+id_traceur+'</td>'
+                                    +'<td>'+numblf+'</td>'
+                                    +'<td>'+statut+'</td>'
+                                    + '</tr>'
+                            console.log('blf = ',blflist['data'][i].id_traceur)
+                        }
+                        
+                        $('#liste-blf-traced').html(htmlBlf)
+                    }
+                } else {
+                    console.log('Initialisation !!! ')
+                    blflist = UserApplication.response.blfList
+                    $('#liste-blf-traced').html('')
+                    if (blflist.hasOwnProperty('data')) {
+                        htmlBlf = ''
+                        for (var i = 0; i < blflist['data'].length; i++) {
+                            id_traceur = blflist['data'][i].id_traceur
+                            numblf = blflist['data'][i].numblf
+                            statut = blflist['data'][i].statut
+                            htmlBlf += '<tr>'
+                                    +'<td>'+id_traceur+'</td>'
+                                    +'<td>'+numblf+'</td>'
+                                    +'<td>'+statut+'</td>'
+                                    + '</tr>'
+                            console.log('blf = ',blflist['data'][i].id_traceur)
+                        }
+                        
+                        $('#liste-blf-traced').html(htmlBlf)
+                    }
+                }
+
+            }
+            
+        }
+
+        let BlfApplication = {
+
+            sendNumblf : function(blf,  callable=null) {
+                ip = $('#select_type_action').val()
+                $.ajax({
+                    method : 'GET'
+                    ,url : globalUrl+'/api/traitement/' + blf + '/' + ip
+                    ,dataType: 'JSON'
+                    , success : function(data) {
+                        if (callable != null) {
+                            callable(data)
+                        }
+                        console.log(data)
+                    }
+                })
+            }
+            ,debutRamassageBlf : function (blf,  callable=null) {
+                console.log('Début ramassage ! ')
+                $.ajax({
+                    method : 'GET'
+                    ,url : globalUrl+'/api/debutramassage/' + blf
+                    ,dataType: 'JSON'
+                    , success : function(data) {
+                        if (callable != null) {
+                            callable(data)
+                        }
+                        console.log(data)
+                    }
+                })
+            }
+    
+            ,finRamassageBlf: function (blf,  callable=null) {
+                console.log('fin ramassage ! ')
+                $.ajax({
+                    method : 'GET'
+                    ,url : globalUrl+'/api/finramassage/' + blf
+                    ,dataType: 'JSON'
+                    , success : function(data) {
+                        if (callable != null) {
+                            callable(data)
+                        }
+                        console.log(data)
+                    }
+                })
+            }
+        }
+
+        
+        let Authentification = false
+        UserApplication.init()
+        CountDown.init()
+
+        
+        console.log('Connection ' + globalUrl)
+        var socket = io.connect(globalUrl);
+
+        socket.on('connect', function() {
+            socket.send(JSON.stringify(UserApplication))
+        });
+
+        socket.on('message', function(msg) {
+            msg=  JSON.parse(msg)
+            console.log(msg)
+            // Page.setNotification(1)
+            $('#header-notification-client').html(Page.notification)
+            /*$('#messages').append('<li>' + msg.text + '</li>');*/
+            console.log('Received message')
+        });
+
+        /*
+            $(document).on('click', '#sendbuttom', function(event) {
+                socket.send($('#myMessage').val())
+            })
+        */
+
+        
+
+        /*
+        $( document ).ready(function() {
+            $( "#myMessage" ).focus();
+        });
+        $(document).on('click', $('body'), function(event) {
+            $( "#myMessage" ).focus();
+        })
+        */
+
+        function checkIsPerson(paragraph) {
+            const stringObject = new String(paragraph)
+            const regex = /^(pers){1,1}-([0-9]){1,}(_){1,1}$/g;
+            const found = stringObject.valueOf().match(regex);
+            return found == null ? false : true
+        }
+
+        function checkIsFactureCode(paragraph) {
+            const stringObject = new String(paragraph)
+            const regex = /^([0-9]){1,4}\/([0-9]){1,}(_){1,1}$/g;
+            const found = stringObject.valueOf().match(regex);
+            return found == null ? false : true
+        }
+        
+        var list_qrcodes = []
+        $(document).on('keyup', '#myMessage', function(event) {
+            event.preventDefault()
+            var val = $(this).val()
+            const stringObj = new String(val);
+
+            console.log(stringObj.valueOf())
+            stringObj.valueOf().split('').forEach(item => {
+                if (item == '_') {
+                    // val = stringObj.valueOf().replace('pers-','')
+
+                    if (checkIsPerson(val) == true) {
+                        val = val.replace('_','')
+                    } else if (checkIsFactureCode(val) == true) {
+                        val = stringObj.valueOf().replace('/', '-')
+                        nblfString = new String(val)
+                        nblf = nblfString.valueOf().replace('_','')
+                        if (UserApplication.isConntected ==true) {
+
+                            alert($('#select_type_action').val())
+                            BlfApplication.sendNumblf(nblf, function(data) {
+                                UserApplication.loadList()
+                            })
+                        }
+                        $(this).val('')
+                        return
+                    } else {
+                        val = null
+                    }
+
+                    $(this).val('')
+                        if (list_qrcodes.length > 0 && val != null) {
+                            
+                            if (list_qrcodes.filter(code_item => {
+                    
+                                if (code_item == val) {
+                                    console.log('I am Here => ' , CountDown.temps)
+                                    if (parseInt(CountDown.temps) <= 0)
+                                    {
+                                        checkedUser(val, function (response){
+                                            user = response.user
+                                            blfList = response.blfList
+                                            if (parseInt(user.ID) != 0)
+                                            {
+                                                CountDown.Authentification = true
+                                                CountDown.setTime(5)
+                                                //CountDown.temps = 25
+
+                                                UserApplication.response.data = user
+                                                UserApplication.response.blfList = blfList
+    
+                                                UserApplication.isConntected = true
+                                                UserApplication.auth = CountDown.Authentification
+                                                UserApplication.id = user.ID
+                                                UserApplication.name = user.name
+                                                UserApplication.prename = user.prenom
+                                                UserApplication.profil = user.profil
+                                               
+                                                socket.send(JSON.stringify(UserApplication))
+                                                if (CountDown.temps > 0 ) {
+                                                    CountDown.rebours()
+                                                    console.log('Yes rebour ! !!! ')
+                                                }
+                                            }
+                                        })
+                                    } else {
+                                        CountDown.Authentification = true
+                                        CountDown.setTime(5)
+                                        //CountDown.temps = 25
+                                        socket.send(JSON.stringify(UserApplication))
+                                        if (CountDown.temps > 0 ) {
+                                            CountDown.rebours()
+                                            console.log('Yes rebour ! !!! ')
+                                        }
+                                    }
+
+                                    console.log('TRUE => ' , CountDown.temps)
+
+                                    
+                                    return true;
+                                    
+                                } else {
+                                    console.log('False : [-] ->  ', val)
+                                    return false  
+                                }
+                                
+                            }) == 0) {
+                                // Authentification
+                                checkedUser(val, function (response){
+                                    user = response.user
+                                    blfList = response.blfList
+                                    if (parseInt(user.ID) != 0)
+                                    {
+                                        CountDown.Authentification = true
+                                        CountDown.setTime(5)
+
+                                        UserApplication.response.user = user
+                                        UserApplication.response.blfList = blfList
+
+                                        UserApplication.isConntected = true
+                                        UserApplication.auth = CountDown.Authentification
+                                        UserApplication.id = user.ID
+                                        UserApplication.name = user.name
+                                        UserApplication.prename = user.prenom
+                                        UserApplication.profil = user.profil
+                                        socket.send(JSON.stringify(UserApplication))
+                                        list_qrcodes.push('pers-'+user.ID)
+                                    }
+                                })
+
+                                if (CountDown.temps > 0 ) {
+                                    CountDown.rebours()
+                                    console.log('Yes rebour ! !!! ')
+                                }
+                                
+                                console.log('[=>]', list_qrcodes)
+                            }
+                            
+                        } else if (val != null) {
+                            // Authentification
+                            // OU
+                            // initialisation de l'insertion de données dans la variable table ! 
+                            checkedUser(val, function (response){
+                                user = response.user
+                                blfList = response.blfList
+                                
+
+                                if (parseInt(user.ID) != 0)
+                                    {
+                                        CountDown.Authentification = true
+                                        CountDown.setTime(5)
+                                        UserApplication.response.user = user
+                                        UserApplication.response.blfList = blfList
+
+                                        UserApplication.auth = CountDown.Authentification
+                                        UserApplication.id = user.ID
+                                        UserApplication.isConntected = true
+                                        UserApplication.name = user.name
+                                        UserApplication.prename = user.prenom
+                                        UserApplication.profil = user.profil
+                                        socket.send(JSON.stringify(UserApplication))
+                                        list_qrcodes.push('pers-'+user.ID)
+                                    }
+
+                                if (CountDown.temps > 0 ) {
+                                    CountDown.rebours()
+                                    // console.log('Yes rebour ! 999 999 9 99 ')
+                                }
+                            })
+                            
+                        }
   
-  <body>
-    <h1>Home Page</h1>
-    <p>This is the home page of our application.</p>
-  </body> 
-</html>
+                    val = ''
+
+                }else {
+                    
+                    // console.log(item, '------')
+                }
+            })
+
+            console.log(list_qrcodes)
+
+            // socket.send($('#myMessage').val())
+        })
+
+
+
+        function initialisationCompteArebours(is= false) {
+            console.log('Action was passed ! ')
+            if (is) {
+                UserApplication.isConntected = true
+                CountDown.Authentification = true
+                limitTime = 25
+                temps = 25
+                console.log('Yes It IS Connected ! ')
+                console.log(UserApplication)
+            } else {
+                CountDown.Authentification = false
+                UserApplication.isConntected = false
+            }
+        }
+
+
+        
+        function checkedUser(userId, callable=null) {
+            $.ajax({
+                method : 'GET'
+                ,url : globalUrl+'/api/login/' + userId
+                ,dataType: 'JSON'
+                , success : function(data) {
+                    if (callable != null) {
+                        callable(data)
+                    }
+                    console.log(data)
+                }
+            })
+        }
+
+        function functionLogout(callable=null) {
+            $.ajax({
+                method : 'GET'
+                ,url : globalUrl+'/api/logout'
+                ,dataType: 'JSON'
+                , success : function(data) {
+                    if (callable != null) {
+                        callable(data)
+                    }
+                    console.log(data)
+                    UserApplication.isConntected = false
+                    UserApplication.id = ''
+                    UserApplication.name = ''
+                    UserApplication.prename = ''
+                    UserApplication.profil = ''
+                }
+            })
+        }
+
+
+    })
+
+    
+</script>
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1> {{ ip_address }} </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <input id="ip_address" type="hidden" name="ip_address" value="{{ ip_address }}">
+                    {% set image_ =  url_for('static', filename='assets/img/badge.webp') %}
+                    <div class="icon-box iconbox-blue" id="badge-box" >
+                        <div id="badge-image" style="background-image: url({{image_}})"></div>
+                        <h4 style="position:relative;"><a href="">Scanner le badge</a></h4>
+                        <p style="margin-top: -181px;" id="dialogue-sanner">Veuiller scanner votre badge s'il vous plait ! </p>
+                        <input type="text" id="myMessage">
+
+                        <div id="compteRebour_affiche"></div>
+                        {# <ul id="messages"></ul> #}
+                        <div style="margin-top: 77px;">
+                            <table>
+                                <tbody id="qrcode_user">
+                                    <tr>
+                                        <td>Matricule:</td>
+                                        <td id="log_matricule"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom:</td>
+                                        <td id="log_name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prénom:</td>
+                                        <td id="log_prename"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="icon-box iconbox-blue">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">numblf</th>
+                                <th scope="col">statut</th>
+                            </tr>
+                            </thead>
+                            <tbody id="liste-blf-traced">
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>   
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="icon-box iconbox-blue">
+                        <h2>Selection config :</h2>
+                        <select name="" id="select_type_action" >
+                            <option value="192.168.123.1">Debut ramassage</option>
+                            <option value="192.168.123.2">Fin ramassage</option>
+                            <option value="192.168.123.3">Debut emballage</option>
+                            <option value="192.168.123.4">Fin emballage</option>
+                            <option value="192.168.123.5">Prepa expedition</option>
+                            <option value="192.168.123.6">Expedition</option>
+                        </select>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+{% endblock %}
