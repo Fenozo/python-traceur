@@ -28,9 +28,11 @@ ENV STATIC_PATH /var/www/app/static
 # upgrade pip version
 RUN pip install --upgrade pip
 
+RUN python -m pip install wheel
+
 
 COPY ./requirements.txt /var/www/requirements.txt
-RUN pip install -r /var/www/requirements.txt
+RUN python -m pip wheel -r /var/www/requirements.txt
 
 EXPOSE 80
 
