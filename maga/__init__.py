@@ -6,6 +6,8 @@ from maga.Repository import Repository
 from flask_session import Session
 from maga.module_api_blf import api_blf
 from maga.module_web_main import module_web_main
+import json
+import datetime
 
 def create_app():
     app = Flask(__name__)
@@ -32,3 +34,15 @@ def create_app():
 data = create_app()
 app = data['app'] # ceci va être exporté
 socketio = data['socketio'] # ceci va être exporté
+
+
+@socketio.on('message')
+def handleMessage(msg):
+    print ('Message : ' + str(msg))
+    item = json.loads(msg)
+    print(item['isConntected'])
+    send(msg, broadcast=True)
+
+def get_current_datetime():
+    now = datetime.datetime.now()
+    return now.strftime("%m/%d/%Y %H:%M:%S")

@@ -10,7 +10,7 @@ class Configuration :
     def __init__(self) -> None:
 
         self.config = {
-            'ipServeur' : '0.0.0.0'
+            'ipServeur' : '127.0.0.1'
             ,'port' :'9000'
         }
 
