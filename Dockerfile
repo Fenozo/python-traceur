@@ -8,7 +8,9 @@ RUN apk --update add bash nano
 ENV STATIC_URL /static
 ENV STATIC_PATH /var/www/app/static
 
-
+RUN apk add python3 python3-dev g++ unixodbc-dev 
+RUN python3 -m ensurepip
+RUN pip3 install --user pyodbc
 # RUN /usr/bin/curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
 #     /usr/bin/curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssqlrelease.list
 
