@@ -4,3 +4,4 @@ maga/config/__pycache__
 maga/module_api_blf/__pycache__
 maga/module_web_blf/__pycache__
 maga/module_web_main/__pycache__
+flask_session
