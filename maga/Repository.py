@@ -1,4 +1,4 @@
-from DbManager import DbManager
+from maga.DbManager import DbManager
 
 class Repository :
     def __init__(self):
