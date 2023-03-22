@@ -1,5 +1,5 @@
 from datetime import datetime
-from Repository import Repository
+from maga.Repository import Repository
 
 class BlfRepository(Repository):
     def __init__(self, *args, **kwargs):
