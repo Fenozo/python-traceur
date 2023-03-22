@@ -3,4 +3,5 @@ flask-cors
 Flask-Session
 flask_socketio
 odbcinst
+pyodbc
 uvicorn
