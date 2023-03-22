@@ -5,6 +5,9 @@ from maga.BlfRepository import BlfRepository
 from maga.config import  SessionService
 from maga.Repository import Repository
 
+from maga.UserRepository import UserRepository
+from maga.BlfRepository import BlfRepository
+
 
 api_blf = Blueprint('api_blf', __name__)
 objectSession = SessionService(session=session)

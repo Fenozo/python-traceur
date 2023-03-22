@@ -5,7 +5,7 @@ from flask_socketio import SocketIO, send
 from maga.Repository import Repository
 from flask_session import Session
 from maga.module_api_blf import api_blf
-from maga.module_web_user import module_web_user
+from maga.module_api_user import api_user
 from maga.module_web_main import module_web_main
 import json
 import datetime
@@ -24,7 +24,7 @@ def create_app():
     # app.register_blueprint(front)
 
     app.register_blueprint(api_blf)
-    app.register_blueprint(module_web_user)
+    app.register_blueprint(api_user)
     app.register_blueprint(module_web_main)
     app.config['SECRET_KEY'] = 'mysecret'
     socketio = SocketIO(app, cros_allowed_origins='*')
