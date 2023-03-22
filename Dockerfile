@@ -34,7 +34,12 @@ RUN python -m pip install wheel
 # if we don't have pip in your PATH environment variable
 RUN python -m pip install Flask-Cors
 # or python 3 (could also be pip3.10 depending on your version)
-RUN python3 -m pip install Flask-Cors
+# RUN python3 -m pip install Flask-Cors
+
+# if we don't have pip in your PATH environment variable
+RUN python -m pip install flask_socketio
+
+
 
 
 COPY ./requirements.txt /var/www/requirements.txt
