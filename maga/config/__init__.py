@@ -4,6 +4,16 @@ from datetime import datetime
 import sys
 import pyodbc
 
+
+
+class Configuration :
+    def getIpServer(self):
+        config = {
+            'ipServeur' : '192.168.118.1'
+        }
+
+        return config['ipServeur']
+    
 class DbManager:
     __instance = None
 
