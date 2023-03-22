@@ -1,5 +1,6 @@
 flask
 flask-cors
+Flask-Cors
 Flask-Session
 flask_socketio
 odbcinst
