@@ -31,6 +31,11 @@ RUN pip install --upgrade pip
 
 RUN python -m pip install wheel
 
+# if we don't have pip in your PATH environment variable
+RUN python -m pip install Flask-Cors
+# or python 3 (could also be pip3.10 depending on your version)
+RUN python3 -m pip install Flask-Cors
+
 
 COPY ./requirements.txt /var/www/requirements.txt
 RUN python -m pip wheel -r /var/www/requirements.txt
