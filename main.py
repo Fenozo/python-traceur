@@ -1,4 +1,5 @@
-from maga import app
-
+from maga import socketio, app
+from maga.config import Configuration
+config = Configuration()
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=9000)
+    socketio.run(app=app,debug=True, host=f'{config.getIpServer()}', port=9000)

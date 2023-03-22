@@ -7,12 +7,18 @@ import pyodbc
 
 
 class Configuration :
-    def getIpServer(self):
-        config = {
-            'ipServeur' : '192.168.118.1'
+    def __init__(self) -> None:
+
+        self.config = {
+            'ipServeur' : '0.0.0.0'
+            ,'port' :'9000'
         }
 
-        return config['ipServeur']
+    def getIpServer(self):
+        return self.config['ipServeur']
+    
+    def getPort(self):
+        return self.config['port']
     
 class DbManager:
     __instance = None
