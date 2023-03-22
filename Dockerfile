@@ -22,7 +22,7 @@ RUN python -m pip install wheel
 COPY ./requirements.txt /var/www/requirements.txt
 RUN python -m pip wheel -r /var/www/requirements.txt
 
-EXPOSE 80
+EXPOSE 9000
 
 COPY . /var/www
 CMD ["python", "main.py"]
