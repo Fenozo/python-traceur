@@ -262,6 +262,7 @@
                     if (checkIsPerson(val) == true) {
                         val = val.replace('_','')
                     } else if (checkIsFactureCode(val) == true) {
+                        // SCAN BLF REUSSI !
                         val = stringObj.valueOf().replace('/', '-')
                         nblfString = new String(val)
                         nblf = nblfString.valueOf().replace('_','')
@@ -271,6 +272,10 @@
                             BlfApplication.sendNumblf(nblf, function(data) {
                                 UserApplication.loadList()
                             })
+                            if (CountDown.temps > 0 ) {
+                                CountDown.rebours()
+                                console.log('Yes rebour ! !!! ')
+                            }
                         }
                         $(this).val('')
                         return
