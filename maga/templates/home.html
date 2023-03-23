@@ -267,7 +267,7 @@
                         nblf = nblfString.valueOf().replace('_','')
                         if (UserApplication.isConntected ==true) {
 
-                            alert($('#select_type_action').val())
+                            //alert($('#select_type_action').val())
                             BlfApplication.sendNumblf(nblf, function(data) {
                                 UserApplication.loadList()
                             })
