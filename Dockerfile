@@ -42,6 +42,7 @@ RUN python -m pip install flask_socketio
 # if we don't have pip in your PATH environment variable
 RUN python -m pip install Flask-Session
 
+RUN python -m pip install simple-websocket
 
 
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 import socket
 
 from maga.config import Configuration
@@ -9,7 +9,7 @@ module_web_main = Blueprint('module_web_main', __name__)
 def home():
     liste = []
     hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
+    host_ip_address = socket.gethostbyname(hostname)
 
     # #dictionnaire de data
     data = {'user': 'Elyon', 'machine': 'windows 11'}
@@ -26,4 +26,10 @@ def home():
     ip_address = f"http://{config.getIpServer()}:{config.getPort()}"
     
     #affichage
-    return render_template('home.html', title='Home', data=data, ip_address=ip_address, liste=liste)
+    return render_template('home.html'
+        , request=request
+        , title='Home'
+        , data=data
+        , ip_address=ip_address
+        , liste=liste
+        , host_ip_address=host_ip_address)
