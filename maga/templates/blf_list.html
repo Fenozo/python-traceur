@@ -2,13 +2,38 @@
 
 
 {% block content %}
+<script type="application/javascript">
+    
+    $(document).ready(function() {
+        globalUrl = $('#ip_address').val()
+
+        $.ajax({
+            method : 'GET'
+            ,url : globalUrl+'/api/blflist/'
+            ,dataType: 'JSON'
+            , success : function(data) {
+                console.log(data)
+            }
+        });
+        
+    })
+
+</script>
 
 <section id="services" class="services section-bg">
-        
+    <input id="ip_address" type="hidden" name="ip_address" value="{{ ip_address }}">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1>Page pour la géstions des bon de livraison et facturation! </h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>NumBlf</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blf-list"></tbody>
+                </table>
             </div>
         </div>
     </div>

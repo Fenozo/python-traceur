@@ -33,3 +33,5 @@ RUN pip3 install --user pyodbc
 ENTRYPOINT [ "python", "-u", "run.py"]
 
 -------------------------------------------------------------------------------------------------------------------
+# notes for php checkout version
+sudo update-alternatives --config php
