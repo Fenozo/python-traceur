@@ -272,7 +272,7 @@ from(
 	ROW_NUMBER() over (order by numblf) as RowNum
 	from [aya_magasin_tache_table]
 )T 
-WHERE T.RowNum BETWEEN (({PageNo}-1) * @PageSize)+1 AND ({PageNo} * @PageSize) order by id_traceur ASC
+WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) order by id_traceur ASC
 --WHERE T.RowNum BETWEEN ((@PageNo-1) * @PageSize)+1 AND (@PageNo * @PageSize) order by id_traceur ASC
 
 
