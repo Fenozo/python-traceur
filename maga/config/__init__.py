@@ -10,12 +10,16 @@ class Configuration :
     def __init__(self) -> None:
 
         self.config = {
-            'ipServeur' : '0.0.0.0'
+            'ipServer' : '0.0.0.0'
+            ,'ipServerSocket' : '192.168.123.245'
             ,'port' :'9000'
         }
-
+        
+    def getIpServerSocket(self):
+        return self.config['ipServerSocket']
+    
     def getIpServer(self):
-        return self.config['ipServeur']
+        return self.config['ipServer']
     
     def getPort(self):
         return self.config['port']

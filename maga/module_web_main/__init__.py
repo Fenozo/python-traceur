@@ -23,7 +23,7 @@ def home():
     
     config = Configuration()
 
-    ip_address = f"http://{config.getIpServer()}:{config.getPort()}"
+    ip_address = f"http://{config.getIpServerSocket()}:{config.getPort()}"
     
     #affichage
     return render_template('home.html'
