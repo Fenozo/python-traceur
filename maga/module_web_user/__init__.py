@@ -11,6 +11,6 @@ web_user = Blueprint('web_user', __name__)
 objectSession = SessionService(session=session)
 
 
-@web_user.route('/user/list')
+@web_user.route('/web/user/list')
 def user_list():
     return render_template('user_list.html')
