@@ -271,13 +271,14 @@
                             //alert($('#select_type_action').val())
                             BlfApplication.sendNumblf(nblf, function(data) {
                                 UserApplication.loadList()
+                                if (CountDown.temps > 0 ) {
+                                    CountDown.rebours()
+                                    console.log('Yes rebour ! !!! ')
+                                } else {
+                                    console.log('a été Ignoré le rebour! ')
+                                }
                             })
-                            if (CountDown.temps > 0 ) {
-                                CountDown.rebours()
-                                console.log('Yes rebour ! !!! ')
-                            } else {
-                                console.log('a été Ignoré le rebour! ')
-                            }
+                            
                         }
                         $(this).val('')
                         return
