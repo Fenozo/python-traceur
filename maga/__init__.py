@@ -6,6 +6,7 @@ from maga.Repository import Repository
 from flask_session import Session
 from maga.module_api_blf import api_blf
 from maga.module_api_user import api_user
+from maga.module_web_user import web_user
 from maga.module_web_main import module_web_main
 import json
 import datetime
@@ -22,7 +23,7 @@ def create_app():
     # front.register_blueprint(assets)
     # assets.register_blueprint(css)
     # app.register_blueprint(front)
-
+    app.register_blueprint(web_user)
     app.register_blueprint(api_blf)
     app.register_blueprint(api_user)
     app.register_blueprint(module_web_main)
