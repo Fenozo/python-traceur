@@ -14,8 +14,12 @@
             , success : function(blflist) {
                 console.log(blflist)
                 for (var i = 0; i < blflist['data'].length; i++) {
-                    // numblf = blflist['data'][i].numblf   
-                    console.log(blflist['data'][i])
+                    numblf = blflist['data'][i].NumBlf   
+                    //console.log(blflist['data'][i])
+                    $('#blf-list').append("<tr>"
+                        + "<td>" + numblf + "</td>"
+                        
+                        + "</tr>")
                 }
             }
         });
