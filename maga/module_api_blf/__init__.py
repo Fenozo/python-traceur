@@ -226,8 +226,9 @@ def route_expedition(blf, ):
 
 
 
-@api_blf.route("/api/blflist")
-def route_blf():
+@api_blf.route("/api/blflist/<page_0>")
+def route_blf(page_0=1):
+    PageNo = page_0
     liste = []
 
     repository = Repository()
@@ -235,8 +236,11 @@ def route_blf():
     # cursor = conn.cursor()
     sql = f"""--begin-sql 
         /****** Script de la commande SelectTopNRows à partir de SSMS  ******/
-        SELECT TOP 5000 [numblf]
-            ,[sd_ram]
+        --DECLARE @PageNo  INT=10
+DECLARE @PageSize INT=10
+
+select  id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+,[sd_ram]
             ,[st_ram]
             ,[rs_ram] -- responsable start ramassage
             ,[re_ram] -- responsable fin ramassage
@@ -249,7 +253,29 @@ def route_blf():
             ,[resp_prepa_exp]
             ,[resp_exp]
             ,[statut]
-        FROM [Commerciale].[dbo].[aya_magasin_tache_table]
+from(
+
+	select id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+	,[sd_ram]
+            ,[st_ram]
+            ,[rs_ram] -- responsable start ramassage
+            ,[re_ram] -- responsable fin ramassage
+            ,[ed_ram] -- date fin ramassage
+             ,[se_ram] -- temps fin ramassage
+            ,[rs_em]-- responsable start emballage
+            ,[re_em] -- responsable fin emballage
+            , [sd_em] -- début emballage
+            , [st_em] -- début temps emballage
+            ,[resp_prepa_exp]
+            ,[resp_exp]
+            ,[statut],
+	ROW_NUMBER() over (order by numblf) as RowNum
+	from [aya_magasin_tache_table]
+)T 
+WHERE T.RowNum BETWEEN (({PageNo}-1) * @PageSize)+1 AND ({PageNo} * @PageSize) order by id_traceur ASC
+--WHERE T.RowNum BETWEEN ((@PageNo-1) * @PageSize)+1 AND (@PageNo * @PageSize) order by id_traceur ASC
+
+
         --end-sql
     """
     # cursor.execute(sql)

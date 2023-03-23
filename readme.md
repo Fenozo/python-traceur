@@ -35,3 +35,25 @@ ENTRYPOINT [ "python", "-u", "run.py"]
 -------------------------------------------------------------------------------------------------------------------
 # notes for php checkout version
 sudo update-alternatives --config php
+
+# Création d'une pagination sur sql server 2008
+-------------------------------------------------------------------------------
+DECLARE @PageNo  INT=10
+DECLARE @PageSize INT=10
+
+select  id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+from(
+
+	select id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province,
+	ROW_NUMBER() over (order by numblf) as RowNum
+	from [aya_magasin_tache_table]
+)T 
+
+WHERE T.RowNum BETWEEN ((@PageNo-1) * @PageSize)+1 AND (@PageNo * @PageSize) order by id_traceur ASC
+
+-------------------------------------------------------------------------------
+select COUNT(*)/10 + 1
+from [aya_magasin_tache_table]
+-------------------------------------------------------------------------------
+	
+
