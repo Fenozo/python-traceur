@@ -272,6 +272,7 @@
                             BlfApplication.sendNumblf(nblf, function(data) {
                                 UserApplication.loadList()
                                 if (CountDown.temps > 0 ) {
+                                    CountDown.setTime(5)
                                     CountDown.rebours()
                                     console.log('Yes rebour BFL ! !!! ')
                                 } else {
