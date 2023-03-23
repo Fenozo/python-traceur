@@ -11,10 +11,10 @@ class Configuration :
 
         self.config = {
             'ipServer' : '0.0.0.0'
-            ,'ipServerSocket' : '192.168.123.245'
+            ,'ipServerSocket' : '192.168.123.254'
             ,'port' :'9000'
         }
-        
+
     def getIpServerSocket(self):
         return self.config['ipServerSocket']
     
