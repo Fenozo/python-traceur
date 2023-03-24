@@ -5,11 +5,12 @@
     list-style: none;
 }
 
-.paginationjs-pages ul li {
+.paginationjs-pages ul li:not(.active) {
     padding: 12px;
     background-color: #63e38e;
     box-shadow: 2px 2px 10px #89c181;
     margin-left: 2px;
+    cursor: pointer;
 }
 
 .paginationjs-pages ul li.active {
