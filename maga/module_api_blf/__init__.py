@@ -229,6 +229,8 @@ def route_expedition(blf, ):
 @api_blf.route("/api/blflist/<page_0>")
 def route_blf(page_0=1):
     PageNo = int(page_0)
+    if 'pageNumber' in request.args:
+        PageNo = request.args['pageNumber']
     liste = []
 
     repository = Repository()
