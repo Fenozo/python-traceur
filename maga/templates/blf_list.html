@@ -53,18 +53,18 @@
                         // dataContainer.html('Loading data from flickr.com ...');
                     }
                 },
-                callback: function(blflist, pagination) {
+                callback: function(items, pagination) {
                     // template method of yourself
-                    for (var i = 0; i < blflist['items'].length; i++) {
-                        id      = blflist['items'][i].id
-                        numblf  = blflist['items'][i].NumBlf
-                        client  = blflist['items'][i].client
-                        date_saisie =  blflist['items'][i].date_saisie
-                        nblg    = blflist['items'][i].nblg
-                        adv     = blflist['items'][i].saisie
-                        statut = blflist['items'][i].statut
-                        province = blflist['items'][i].province
-                        district = blflist['items'][i].district
+                    for (var i = 0; i < items.length; i++) {
+                        id      = items[i].id
+                        numblf  = items[i].NumBlf
+                        client  = items[i].client
+                        date_saisie =  items[i].date_saisie
+                        nblg    = items[i].nblg
+                        adv     = items[i].saisie
+                        statut = items[i].statut
+                        province = items[i].province
+                        district = items[i].district
                         //console.log(blflist['data'][i])
                         $('#blf-list').append("<tr>"
                             + "<td>" + id + "</td>"
