@@ -389,6 +389,14 @@ from(
                 
             })
 
+    if blf_lists is None:
+        my_pagination = {
+            'state' : None
+            ,'totalNumber' : 0
+            , "pageSize"  : 0
+            , "currentPage" : 0
+        }
+
     return jsonify({
         'connexion' : True
         , 'pagination' : my_pagination
