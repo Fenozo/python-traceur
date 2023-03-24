@@ -21,12 +21,14 @@
                         numblf  = blflist['data'][i].NumBlf
                         client  = blflist['data'][i].client
                         nblg    = blflist['data'][i].nblg
+                        adv     = blflist['data'][i].saisie
                         //console.log(blflist['data'][i])
                         $('#blf-list').append("<tr>"
                             + "<td>" + id + "</td>"
                             + "<td>" + numblf + "</td>"
                             + "<td>" + nblg + "</td>"
                             + "<td>" + client + "</td>"
+                            + "<td>" + adv + "</td>"
                             + "</tr>")
                     }
                 }
@@ -50,6 +52,7 @@
                             <th>N°BLF</th>
                             <th>NB Lg</th>
                             <th>Client</th>
+                            <th>ADV</th>
                         </tr>
                     </thead>
                     <tbody id="blf-list"></tbody>
