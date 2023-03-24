@@ -334,7 +334,7 @@ from(
     # #dictionnaire de data
     if blf_lists is not None:
         for data in blf_lists:
-            if my_pagination.state is None:
+            if my_pagination['state'] is None:
                 my_pagination = {
                     'state' : True
                     ,'totalNumber'           : f"{data.nb_blf}"
