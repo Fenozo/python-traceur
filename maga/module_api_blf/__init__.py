@@ -4,7 +4,7 @@ from maga import  session, request
 from maga.BlfRepository import BlfRepository
 from maga.config import  SessionService
 from maga.Repository import Repository
-
+import math
 from maga.UserRepository import UserRepository
 from maga.BlfRepository import BlfRepository
 
@@ -313,7 +313,7 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
         my_datas.append({
             'id'                : f"{data.RowNum}"
             ,'NumBlf'            : data.numblf
-            , 'nb_blf'          : f"{data.nb_blf}"
+            
             , 'mom_personnel'   : f"{data.Nom_personnel}"
             , 'date_saisie'     : f"{data.DateSaisie}"
             , 'saisie'          : f"{data.MatSaisie}"
@@ -354,6 +354,10 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
             }
             ,'debutTempsEm'     : f"{data.st_em}"
             ,'statut'           : data.statut
+            , "pagination" : {
+                'nb_blf'          : f"{data.nb_blf}"
+                , "max": math.ceil((data.nb_blf) /10)
+            }
         })
 
     return jsonify({
