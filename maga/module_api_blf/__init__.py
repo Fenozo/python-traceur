@@ -239,7 +239,7 @@ def route_blf(page_0=1):
         --DECLARE @PageNo  INT=10
 DECLARE @PageSize INT=10
 
-select  T.RowNum, id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+select  T.RowNum, T.nb_blf, id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
             ,NBLG
             ,DateSaisie
             , [sd_ram]
@@ -291,6 +291,7 @@ from(
             , montant_ca_brut
             , nblh
             , lieu_stockage
+            , (select COUNT(*)  from aya_magasin_tache_table)  as nb_blf
 	, ROW_NUMBER() over (order by numblf) as RowNum
 	from [aya_magasin_tache_table]
 )T 
@@ -312,6 +313,7 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
         my_datas.append({
             'id'                : f"{data.RowNum}"
             ,'NumBlf'            : data.numblf
+            , 'nb_blf'          : f"{data.nb_blf}"
             , 'mom_personnel'   : f"{data.Nom_personnel}"
             , 'date_saisie'     : f"{data.DateSaisie}"
             , 'saisie'          : f"{data.MatSaisie}"
