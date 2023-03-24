@@ -240,38 +240,58 @@ def route_blf(page_0=1):
 DECLARE @PageSize INT=10
 
 select  id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+            ,NBLG
             ,DateSaisie
-            ,[sd_ram]
-            ,[st_ram]
-            ,[rs_ram] -- responsable start ramassage
-            ,[re_ram] -- responsable fin ramassage
-            ,[ed_ram] -- date fin ramassage
-             ,[se_ram] -- temps fin ramassage
-            ,[rs_em]-- responsable start emballage
-            ,[re_em] -- responsable fin emballage
+            , [sd_ram]
+            , [st_ram]
+            , [rs_ram] -- responsable start ramassage
+            , [re_ram] -- responsable fin ramassage
+            , [ed_ram] -- date fin ramassage
+            , [se_ram] -- temps fin ramassage
+            , [rs_em]-- responsable start emballage
+            , [re_em] -- responsable fin emballage
             , [sd_em] -- début emballage
             , [st_em] -- début temps emballage
-            ,[resp_prepa_exp]
-            ,[resp_exp]
+            , [et_em] -- fin temps emballage
+            , [ed_em] -- fin date emballage
+            , [resp_prepa_exp]
+            , [date_prepa_exp]
+            , [time_prepa_exp]
+            , [date_exp]
+            , [time_exp]
+            , [resp_exp]
             ,[statut]
+            ,montant_ca_brut
+            ,nblh
+            , lieu_stockage 
 from(
 
 	select id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+    ,NBLG
     ,DateSaisie
 	,[sd_ram]
-            ,[st_ram] -- start time ramassage
-            ,[rs_ram] -- responsable start ramassage
-            ,[re_ram] -- responsable fin ramassage
-            ,[ed_ram] -- date fin ramassage
-             ,[se_ram] -- temps fin ramassage
-            ,[rs_em]-- responsable start emballage
-            ,[re_em] -- responsable fin emballage
+            , [st_ram] -- start time ramassage
+            , [rs_ram] -- responsable start ramassage
+            , [re_ram] -- responsable fin ramassage
+            , [ed_ram] -- date fin ramassage
+            , [se_ram] -- temps fin ramassage
+            , [rs_em]-- responsable start emballage
+            , [re_em] -- responsable fin emballage
             , [sd_em] -- début emballage
             , [st_em] -- début temps emballage
-            ,[resp_prepa_exp]
-            ,[resp_exp]
-            ,[statut],
-	ROW_NUMBER() over (order by numblf) as RowNum
+            , [et_em] -- fin temps emballage
+            , [ed_em] -- fin date emballage
+            , [resp_prepa_exp]
+            , [date_prepa_exp]
+            , [time_prepa_exp]
+            , [date_exp]
+            , [time_exp]
+            , [resp_exp]
+            , [statut]
+            , montant_ca_brut
+            , nblh
+            , lieu_stockage
+	, ROW_NUMBER() over (order by numblf) as RowNum
 	from [aya_magasin_tache_table]
 )T 
 WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) order by id_traceur ASC
@@ -291,26 +311,44 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
     for data in blf_lists:
         my_datas.append({
             'NumBlf'            : data.numblf
-            ,'mom_personnel' : f"{data.Nom_personnel}"
-            , 'date_saisie'  : f"{data.DateSaisie}"
-            , 'saisie' : f"{data.MatSaisie}"
-            , 'rs' : f"{data.Rs}"
-            ,"district" : f"{data.District}"
-            ,"province" : f"{data.Province}"
+            , 'mom_personnel'   : f"{data.Nom_personnel}"
+            , 'date_saisie'     : f"{data.DateSaisie}"
+            , 'saisie'          : f"{data.MatSaisie}"
+            , 'rs'              : f"{data.Rs}"
+            , "district"        : f"{data.District}"
+            , "province"        : f"{data.Province}"
+            , "nblg"            : f"{data.NBLG}"
+            , 'nblh'            : f"{data.nblh}"
+            , "lieu_stockage"   : f"{data.lieu_stockage}"
+            , "montant_ca_brut" : f"{data.montant_ca_brut}"
             , "ramassage" :  {
-                'start_time' : f"{data.st_ram}"
+                'start_time'      : f"{data.st_ram}"
                 , 'start_date'    : f"{data.sd_ram}"
-                 ,'start_resp'    : f"{data.rs_ram}"
+                , 'start_resp'    : f"{data.rs_ram}"
                 , "end_time"      : f"{data.se_ram}"
-                ,'end_date'       : f"{data.ed_ram}"
-                ,'end_resp'       : f"{data.re_ram}"
+                , 'end_date'      : f"{data.ed_ram}"
+                , 'end_resp'      : f"{data.re_ram}"
             }
             , "emballage" : {
-            
+                "start_date"    : f"{data.sd_em}"
+                , "start_time"  : f"{data.st_em}"
+                , "end_time"    : f"{data.et_em}"
+                , "end_date"    : f"{data.ed_em}"
+                , "start_resp"  : f"{data.rs_em}"
+                , "end_resp"    : f"{data.re_em}"
             }
-            ,'debutEmballage'   : f"{data.sd_em}"
-            ,'debutTempsEm'   : f"{data.st_em}"
-            ,'statut' : data.statut
+            ,'prepa_expedition'   : {
+                "date"              :  f"{data.date_prepa_exp}"
+                ,"time"              :  f"{data.time_prepa_exp}"
+                ,"responsable"      :  f"{data.sd_em}" 
+            }
+            , "expedition" : {
+                "date"          : f"{data.date_exp}"
+                , "time"        : f"{data.time_exp}"
+                ,"responsable"  : f"{data.resp_exp}"
+            }
+            ,'debutTempsEm'     : f"{data.st_em}"
+            ,'statut'           : data.statut
         })
 
     return jsonify({
