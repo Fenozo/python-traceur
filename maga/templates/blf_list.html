@@ -9,37 +9,6 @@
         
         getListByPage(page = 1)
 
-        function getListByPage(page = 1) {
-            $.ajax({
-                method : 'GET'
-                ,url : globalUrl+'/api/blflist/'+ page
-                ,dataType: 'JSON'
-                , success : function(blflist) {
-                    console.log(blflist)
-                    for (var i = 0; i < blflist['data'].length; i++) {
-                        id      = blflist['data'][i].id
-                        numblf  = blflist['data'][i].NumBlf
-                        client  = blflist['data'][i].client
-                        nblg    = blflist['data'][i].nblg
-                        adv     = blflist['data'][i].saisie
-                        statut = blflist['data'][i].statut
-                        province = blflist['data'][i].province
-                        district = blflist['data'][i].district
-                        //console.log(blflist['data'][i])
-                        $('#blf-list').append("<tr>"
-                            + "<td>" + id + "</td>"
-                            + "<td>" + numblf + "</td>"
-                            + "<td>" + nblg + "</td>"
-                            + "<td>" + client + "</td>"
-                            + "<td>" + adv + "</td>"
-                            + "<td>" + getEtat(statut) + "</td>"
-                            + "<td>" + province +' '+ district + "</td>"
-                            + "</tr>")
-                    }
-                }
-            });
-        }
-
         function getEtat(status) {
             etat = ''
             switch(parseInt(status)){
@@ -67,6 +36,42 @@
             return etat
         }
 
+        function getListByPage(page = 1) {
+            $.ajax({
+                method : 'GET'
+                ,url : globalUrl+'/api/blflist/'+ page
+                ,dataType: 'JSON'
+                , success : function(blflist) {
+                    console.log(blflist)
+                    for (var i = 0; i < blflist['data'].length; i++) {
+                        id      = blflist['data'][i].id
+                        numblf  = blflist['data'][i].NumBlf
+                        client  = blflist['data'][i].client
+                        date_saisie =  blflist['data'][i].date_saisie
+                        nblg    = blflist['data'][i].nblg
+                        adv     = blflist['data'][i].saisie
+                        statut = blflist['data'][i].statut
+                        province = blflist['data'][i].province
+                        district = blflist['data'][i].district
+                        //console.log(blflist['data'][i])
+                        $('#blf-list').append("<tr>"
+                            + "<td>" + id + "</td>"
+                            + "<td>" + numblf + "</td>"
+                            + "<td>" + nblg + "</td>"
+                            + "<td>" + client + "</td>"
+                            + "<td>" + date_saisie + "</td>"
+                            + "<td>" + adv + "</td>"
+                            + "<td>" + getEtat(statut) + "</td>"
+                            + "<td>" + province +' '+ district + "</td>"
+                            
+                            + "</tr>")
+                    }
+                }
+            });
+        }
+
+        
+
     })
 
 </script>
@@ -84,6 +89,7 @@
                             <th>N°BLF</th>
                             <th>NB Lg</th>
                             <th>Client</th>
+                            <th>Date de saisie</th>
                             <th>ADV</th>
                             <th>Etat</th>
                             <th>PROVINCE/DISTRICT</th>
