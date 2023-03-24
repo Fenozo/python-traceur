@@ -43,6 +43,7 @@
                 locator: 'items',
                 totalNumberLocator: function(response) {
                     // you can return totalNumber by analyzing response content
+                    console.log(response)
                     return Math.floor(Math.random() * (1000 - 100)) + 100;
                 },
                 pageSize: 10,
@@ -65,16 +66,16 @@
                 ,dataType: 'JSON'
                 , success : function(blflist) {
                     console.log(blflist)
-                    for (var i = 0; i < blflist['data'].length; i++) {
-                        id      = blflist['data'][i].id
-                        numblf  = blflist['data'][i].NumBlf
-                        client  = blflist['data'][i].client
-                        date_saisie =  blflist['data'][i].date_saisie
-                        nblg    = blflist['data'][i].nblg
-                        adv     = blflist['data'][i].saisie
-                        statut = blflist['data'][i].statut
-                        province = blflist['data'][i].province
-                        district = blflist['data'][i].district
+                    for (var i = 0; i < blflist['items'].length; i++) {
+                        id      = blflist['items'][i].id
+                        numblf  = blflist['items'][i].NumBlf
+                        client  = blflist['items'][i].client
+                        date_saisie =  blflist['items'][i].date_saisie
+                        nblg    = blflist['items'][i].nblg
+                        adv     = blflist['items'][i].saisie
+                        statut = blflist['items'][i].statut
+                        province = blflist['items'][i].province
+                        district = blflist['items'][i].district
                         //console.log(blflist['data'][i])
                         $('#blf-list').append("<tr>"
                             + "<td>" + id + "</td>"
