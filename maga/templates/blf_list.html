@@ -6,23 +6,27 @@
     
     $(document).ready(function() {
         globalUrl = $('#ip_address').val()
+        
+        getListByPage(page = 1)
 
-        $.ajax({
-            method : 'GET'
-            ,url : globalUrl+'/api/blflist'
-            ,dataType: 'JSON'
-            , success : function(blflist) {
-                console.log(blflist)
-                for (var i = 0; i < blflist['data'].length; i++) {
-                    numblf = blflist['data'][i].NumBlf   
-                    //console.log(blflist['data'][i])
-                    $('#blf-list').append("<tr>"
-                        + "<td>" + numblf + "</td>"
-                        
-                        + "</tr>")
+        function getListByPage(page = 1) {
+            $.ajax({
+                method : 'GET'
+                ,url : globalUrl+'/api/blflist/'+ page
+                ,dataType: 'JSON'
+                , success : function(blflist) {
+                    console.log(blflist)
+                    for (var i = 0; i < blflist['data'].length; i++) {
+                        numblf = blflist['data'][i].NumBlf   
+                        //console.log(blflist['data'][i])
+                        $('#blf-list').append("<tr>"
+                            + "<td>" + numblf + "</td>"
+                            
+                            + "</tr>")
+                    }
                 }
-            }
-        });
+            });
+        }
 
     })
 
