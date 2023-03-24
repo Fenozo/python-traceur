@@ -9,6 +9,12 @@
         
         getListByPage(page = 1)
 
+        $(document).on('keyup', '#find_by_value', function(event) {
+            event.preventDefault()
+            let value = $(this).val()
+            getListByPage(page = 1, value)
+        })
+
         function getEtat(status) {
             etat = ''
             switch(parseInt(status)){
@@ -36,10 +42,10 @@
             return etat
         }
 
-        function getListByPage(page = 1) {
+        function getListByPage(page = 1, search_by_value='') {
             
             $('#pagination').pagination({
-                dataSource: globalUrl+'/api/blflist/'+ page,
+                dataSource: globalUrl+'/api/blflist/'+ page + '?search_by_value=' + search_by_value,
                 locator: 'items',
                 totalNumberLocator: function(response) {
                     // you can return totalNumber by analyzing response content
@@ -65,7 +71,7 @@
                         date_saisie =  items[i].date_saisie
                         nblg    = items[i].nblg
                         adv     = items[i].saisie
-                        statut = items[i].statut
+                        statut  = items[i].statut
                         province = items[i].province
                         district = items[i].district
                         //console.log(blflist['data'][i])
@@ -113,6 +119,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Page pour la géstions des bon de livraison et facturation! </h1>
+                <input type="text" id="find_by_value" />
                 <table class="table">
                     <thead>
                         <tr>
