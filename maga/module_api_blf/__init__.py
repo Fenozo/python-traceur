@@ -324,16 +324,22 @@ from(
     blf_lists = repository.getList(sql=sql)
     my_datas = []
 
-    my_pagination = None
+    my_pagination = {
+        'state' : None
+        ,'totalNumber' : 0
+        , "pageSize"  : 0
+        , "currentPage" : 0
+    }
 
     # #dictionnaire de data
     if blf_lists is not None:
         for data in blf_lists:
-            if my_pagination is None:
+            if my_pagination.state is None:
                 my_pagination = {
-                    'totalNumber'            : f"{data.nb_blf}"
+                    'state' : True
+                    ,'totalNumber'           : f"{data.nb_blf}"
                     , "pageSize"             : math.ceil((data.nb_blf) /10)
-                    , "currentPage"     :   PageNo
+                    , "currentPage"          :   PageNo
                 } 
             my_datas.append({
                 'id'                : f"{data.RowNum}"
