@@ -53,19 +53,8 @@
                         // dataContainer.html('Loading data from flickr.com ...');
                     }
                 },
-                callback: function(data, pagination) {
+                callback: function(blflist, pagination) {
                     // template method of yourself
-                    console.log(data)
-                    //dataContainer.html(html);
-                }
-            })
-
-            $.ajax({
-                method : 'GET'
-                ,url : globalUrl+'/api/blflist/'+ page
-                ,dataType: 'JSON'
-                , success : function(blflist) {
-                    console.log(blflist)
                     for (var i = 0; i < blflist['items'].length; i++) {
                         id      = blflist['items'][i].id
                         numblf  = blflist['items'][i].NumBlf
@@ -89,6 +78,18 @@
                             
                             + "</tr>")
                     }
+                    console.log(blflist)
+                    //dataContainer.html(html);
+                }
+            })
+
+            $.ajax({
+                method : 'GET'
+                ,url : globalUrl+'/api/blflist/'+ page
+                ,dataType: 'JSON'
+                , success : function(blflist) {
+                    console.log(blflist)
+                    
                     //$('#pagination').append('<ul></ul>')
                     //for (var i =0; i < blflist['pagination']['max']; i++) {
                         //$('#pagination').find('ul').append('<li>'+i+'</li>')
