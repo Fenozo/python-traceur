@@ -320,7 +320,7 @@ from(
     """
     # cursor.execute(sql)
 
-    time.sleep(1)
+    # time.sleep(1)
 
     blf_lists = repository.getList(sql=sql)
     my_datas = []
