@@ -44,9 +44,9 @@
                 totalNumberLocator: function(response) {
                     // you can return totalNumber by analyzing response content
                     console.log('response start ajax')
-                    console.log(response.pagination.pageSize)
+                    console.log(response.pagination.totalNumber)
                     console.log('response end ajax')
-                    return response.pagination.pageSize;
+                    return response.pagination.totalNumber;
                 },
                 pageSize: 10,
                 ajax: {
