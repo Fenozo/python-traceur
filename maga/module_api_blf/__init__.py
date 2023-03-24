@@ -327,59 +327,60 @@ from(
     my_pagination = None
 
     # #dictionnaire de data
-    for data in blf_lists:
-        if my_pagination is None:
-            my_pagination = {
-                'totalNumber'            : f"{data.nb_blf}"
-                , "pageSize"             : math.ceil((data.nb_blf) /10)
-                , "currentPage"     :   PageNo
-            } 
-        my_datas.append({
-            'id'                : f"{data.RowNum}"
-            ,'NumBlf'            : data.numblf
-            
-            , 'mom_personnel'   : f"{data.Nom_personnel}"
-            , 'date_saisie'     : f"{data.DateSaisie}"
-            , 'saisie'          : f"{data.MatSaisie}"
-            , "prefixe"         : f"{data.Prefixe}"
-            , 'rs'              : f"{data.Rs}"
-            , "client"          : f"{data.Prefixe} {data.Rs}"
-            , "district"        : f"{data.District}"
-            , "province"        : f"{data.Province}"
-            , "nblg"            : f"{data.NBLG}"
-            , 'nblh'            : f"{data.nblh}"
-            , "lieu_stockage"   : f"{data.lieu_stockage}"
-            , "montant_ca_brut" : f"{data.montant_ca_brut}"
-            , "ramassage" :  {
-                'start_time'      : f"{data.st_ram}"
-                , 'start_date'    : f"{data.sd_ram}"
-                , 'start_resp'    : f"{data.rs_ram}"
-                , "end_time"      : f"{data.se_ram}"
-                , 'end_date'      : f"{data.ed_ram}"
-                , 'end_resp'      : f"{data.re_ram}"
-            }
-            , "emballage" : {
-                "start_date"    : f"{data.sd_em}"
-                , "start_time"  : f"{data.st_em}"
-                , "end_time"    : f"{data.et_em}"
-                , "end_date"    : f"{data.ed_em}"
-                , "start_resp"  : f"{data.rs_em}"
-                , "end_resp"    : f"{data.re_em}"
-            }
-            ,'prepa_expedition'   : {
-                "date"              :  f"{data.date_prepa_exp}"
-                ,"time"              :  f"{data.time_prepa_exp}"
-                ,"responsable"      :  f"{data.sd_em}" 
-            }
-            , "expedition" : {
-                "date"          : f"{data.date_exp}"
-                , "time"        : f"{data.time_exp}"
-                ,"responsable"  : f"{data.resp_exp}"
-            }
-            ,'debutTempsEm'     : f"{data.st_em}"
-            ,'statut'           : data.statut
-            
-        })
+    if blf_lists is not None:
+        for data in blf_lists:
+            if my_pagination is None:
+                my_pagination = {
+                    'totalNumber'            : f"{data.nb_blf}"
+                    , "pageSize"             : math.ceil((data.nb_blf) /10)
+                    , "currentPage"     :   PageNo
+                } 
+            my_datas.append({
+                'id'                : f"{data.RowNum}"
+                ,'NumBlf'            : data.numblf
+                
+                , 'mom_personnel'   : f"{data.Nom_personnel}"
+                , 'date_saisie'     : f"{data.DateSaisie}"
+                , 'saisie'          : f"{data.MatSaisie}"
+                , "prefixe"         : f"{data.Prefixe}"
+                , 'rs'              : f"{data.Rs}"
+                , "client"          : f"{data.Prefixe} {data.Rs}"
+                , "district"        : f"{data.District}"
+                , "province"        : f"{data.Province}"
+                , "nblg"            : f"{data.NBLG}"
+                , 'nblh'            : f"{data.nblh}"
+                , "lieu_stockage"   : f"{data.lieu_stockage}"
+                , "montant_ca_brut" : f"{data.montant_ca_brut}"
+                , "ramassage" :  {
+                    'start_time'      : f"{data.st_ram}"
+                    , 'start_date'    : f"{data.sd_ram}"
+                    , 'start_resp'    : f"{data.rs_ram}"
+                    , "end_time"      : f"{data.se_ram}"
+                    , 'end_date'      : f"{data.ed_ram}"
+                    , 'end_resp'      : f"{data.re_ram}"
+                }
+                , "emballage" : {
+                    "start_date"    : f"{data.sd_em}"
+                    , "start_time"  : f"{data.st_em}"
+                    , "end_time"    : f"{data.et_em}"
+                    , "end_date"    : f"{data.ed_em}"
+                    , "start_resp"  : f"{data.rs_em}"
+                    , "end_resp"    : f"{data.re_em}"
+                }
+                ,'prepa_expedition'   : {
+                    "date"              :  f"{data.date_prepa_exp}"
+                    ,"time"              :  f"{data.time_prepa_exp}"
+                    ,"responsable"      :  f"{data.sd_em}" 
+                }
+                , "expedition" : {
+                    "date"          : f"{data.date_exp}"
+                    , "time"        : f"{data.time_exp}"
+                    ,"responsable"  : f"{data.resp_exp}"
+                }
+                ,'debutTempsEm'     : f"{data.st_em}"
+                ,'statut'           : data.statut
+                
+            })
 
     return jsonify({
         'connexion' : True
