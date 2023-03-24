@@ -306,10 +306,16 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
     blf_lists = repository.getList(sql=sql)
     my_datas = []
 
-
+    my_pagination = None
 
     # #dictionnaire de data
     for data in blf_lists:
+        if my_pagination is None:
+            my_pagination = {
+                'nb_blf'            : f"{data.nb_blf}"
+                , "max"             : math.ceil((data.nb_blf) /10)
+                , "currentPage"     :   PageNo
+            } 
         my_datas.append({
             'id'                : f"{data.RowNum}"
             ,'NumBlf'            : data.numblf
@@ -354,13 +360,11 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
             }
             ,'debutTempsEm'     : f"{data.st_em}"
             ,'statut'           : data.statut
-            , "pagination" : {
-                'nb_blf'          : f"{data.nb_blf}"
-                , "max": math.ceil((data.nb_blf) /10)
-            }
+            
         })
 
     return jsonify({
         'connexion' : True
+        , 'pagination' : my_pagination
         ,'data' : my_datas
         })
