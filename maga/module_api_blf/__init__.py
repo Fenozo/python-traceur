@@ -319,6 +319,8 @@ from(
     """
     # cursor.execute(sql)
 
+    print(sql)
+
     blf_lists = repository.getList(sql=sql)
     my_datas = []
 
