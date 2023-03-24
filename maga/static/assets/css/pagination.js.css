@@ -5,13 +5,16 @@
     list-style: none;
 }
 
-.paginationjs-pages ul li:not(.active) {
+.paginationjs-pages ul li {
     padding: 12px;
+    margin-left: 2px;
+}
+.paginationjs-pages ul li:not(.active) {
     background-color: #63e38e;
     box-shadow: 2px 2px 10px #89c181;
-    margin-left: 2px;
     cursor: pointer;
 }
+
 
 .paginationjs-pages ul li.active {
     background-color: #fff;
