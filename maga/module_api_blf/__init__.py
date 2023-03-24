@@ -257,6 +257,7 @@ select  id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District
 from(
 
 	select id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+    ,DateSaisie
 	,[sd_ram]
             ,[st_ram] -- start time ramassage
             ,[rs_ram] -- responsable start ramassage
