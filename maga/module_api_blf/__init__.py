@@ -240,7 +240,8 @@ def route_blf(page_0=1):
 DECLARE @PageSize INT=10
 
 select  id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
-,[sd_ram]
+            ,DateSaisie
+            ,[sd_ram]
             ,[st_ram]
             ,[rs_ram] -- responsable start ramassage
             ,[re_ram] -- responsable fin ramassage
@@ -290,6 +291,11 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
         my_datas.append({
             'NumBlf'            : data.numblf
             ,'mom_personnel' : f"{data.Nom_personnel}"
+            , 'date_saisie'  : f"{data.DateSaisie}"
+            , 'saisie' : f"{data.MatSaisie}"
+            , 'rs' : f"{data.Rs}"
+            ,"district" : f"{data.District}"
+            ,"province" : f"{data.Province}"
             , "ramassage" :  {
                 'start_time' : f"{data.st_ram}"
                 , 'start_date'    : f"{data.sd_ram}"
@@ -297,6 +303,9 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
                 , "end_time"      : f"{data.se_ram}"
                 ,'end_date'       : f"{data.ed_ram}"
                 ,'end_resp'       : f"{data.re_ram}"
+            }
+            , "emballage" : {
+            
             }
             ,'debutEmballage'   : f"{data.sd_em}"
             ,'debutTempsEm'   : f"{data.st_em}"
