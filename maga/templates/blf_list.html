@@ -17,11 +17,16 @@
                 , success : function(blflist) {
                     console.log(blflist)
                     for (var i = 0; i < blflist['data'].length; i++) {
-                        numblf = blflist['data'][i].NumBlf   
+                        id      = blflist['data'][i].id
+                        numblf  = blflist['data'][i].NumBlf
+                        client  = blflist['data'][i].client
+                        nblg    = blflist['data'][i].nblg
                         //console.log(blflist['data'][i])
                         $('#blf-list').append("<tr>"
+                            + "<td>" + id + "</td>"
                             + "<td>" + numblf + "</td>"
-                            
+                            + "<td>" + nblg + "</td>"
+                            + "<td>" + client + "</td>"
                             + "</tr>")
                     }
                 }
@@ -41,7 +46,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>NumBlf</th>
+                            <th>ID</th>
+                            <th>N°BLF</th>
+                            <ht>NB Lg</ht>
+                            <th>Client</th>
                         </tr>
                     </thead>
                     <tbody id="blf-list"></tbody>
