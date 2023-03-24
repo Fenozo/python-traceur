@@ -239,7 +239,7 @@ def route_blf(page_0=1):
         --DECLARE @PageNo  INT=10
 DECLARE @PageSize INT=10
 
-select  id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
+select  T.RowNum, id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
             ,NBLG
             ,DateSaisie
             , [sd_ram]
@@ -310,7 +310,8 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
     # #dictionnaire de data
     for data in blf_lists:
         my_datas.append({
-            'NumBlf'            : data.numblf
+            'id'                : f"{data.RowNum}"
+            ,'NumBlf'            : data.numblf
             , 'mom_personnel'   : f"{data.Nom_personnel}"
             , 'date_saisie'     : f"{data.DateSaisie}"
             , 'saisie'          : f"{data.MatSaisie}"
