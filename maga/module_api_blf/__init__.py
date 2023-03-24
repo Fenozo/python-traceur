@@ -230,7 +230,7 @@ def route_expedition(blf, ):
 def route_blf(page_0=1):
     PageNo = int(page_0)
     if 'pageNumber' in request.args:
-        PageNo = request.args['pageNumber']
+        PageNo = int(request.args['pageNumber'])
     liste = []
 
     repository = Repository()
