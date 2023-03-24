@@ -66,6 +66,10 @@
                             
                             + "</tr>")
                     }
+                    $('#pagination').appand('<ul></ul>')
+                    for (var i =0; i < blflist['pagination']['max']; i++) {
+                        $('#pagination').find('ul').append('<li>'+i+'</li>')
+                    }
                 }
             });
         }
@@ -97,6 +101,7 @@
                     </thead>
                     <tbody id="blf-list"></tbody>
                 </table>
+                <div id="pagination"></div>
             </div>
         </div>
     </div>
