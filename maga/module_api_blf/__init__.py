@@ -302,13 +302,13 @@ from(
     --end-sql"""
 
     # search_by_value = None
-    # if 'search_by_value' in request.args:
-    #     search_by_value = request.args['search_by_value']
-    #     sql += f"""--begin-sql
-    #         where numblf like '%{search_by_value}%'
-    #     --end-sql"""
+    if 'search_by_value' in request.args:
+        search_by_value = request.args['search_by_value']
+        sql = sql + f"""--begin-sql
+            where numblf like '%{search_by_value}%'
+        --end-sql"""
 
-    sql += """
+    sql = sql + f"""
     --begin-sql
     )T 
     WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) order by T.RowNum ASC
