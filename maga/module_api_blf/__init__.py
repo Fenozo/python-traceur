@@ -257,7 +257,7 @@ from(
 
 	select id_traceur, numblf , Nom_personnel, MatSaisie, Prefixe, Rs, CP, District, Province
 	,[sd_ram]
-            ,[st_ram]
+            ,[st_ram] -- start time ramassage
             ,[rs_ram] -- responsable start ramassage
             ,[re_ram] -- responsable fin ramassage
             ,[ed_ram] -- date fin ramassage
@@ -289,11 +289,15 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
     for data in blf_lists:
         my_datas.append({
             'NumBlf'            : data.numblf
-            , 'debutRam'        : f"{data.sd_ram}"
-            ,'FinRam'           : f"{data.ed_ram}"
-            , "tempFinRam"      : f"{data.se_ram}"
-            ,'respRam'          : f"{data.rs_ram}"
-            ,'respFinRam'       : f"{data.re_ram}"
+            ,'mom_personnel' : f"{data.Nom_personnel}"
+            , "ramassage" :  {
+                'start_time' : f"{data.st_ram}"
+                , 'start_date'    : f"{data.sd_ram}"
+                 ,'start_resp'    : f"{data.rs_ram}"
+                , "end_time"      : f"{data.se_ram}"
+                ,'end_date'       : f"{data.ed_ram}"
+                ,'end_resp'       : f"{data.re_ram}"
+            }
             ,'debutEmballage'   : f"{data.sd_em}"
             ,'debutTempsEm'   : f"{data.st_em}"
             ,'statut' : data.statut
