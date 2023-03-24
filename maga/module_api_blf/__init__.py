@@ -1,5 +1,5 @@
-from os import times
 import sys
+import time
 from flask import Blueprint, jsonify, render_template
 from maga import  session, request
 from maga.BlfRepository import BlfRepository
@@ -320,7 +320,7 @@ from(
     """
     # cursor.execute(sql)
 
-    times.sleep(1)
+    time.sleep(1)
 
     blf_lists = repository.getList(sql=sql)
     my_datas = []
