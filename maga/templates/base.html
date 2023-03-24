@@ -29,8 +29,8 @@
     <!-- Template Main CSS File -->
     <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
 
-
-
+    <script src="{{ url_for('static', filename='assets/js/pagination.js') }}"></script>
+    
     <script>
     </script>
 </head>
@@ -104,5 +104,6 @@
     <main id="main">
         {% block content%}{% endblock %}
     </main>
+    
 </body>
 </html>

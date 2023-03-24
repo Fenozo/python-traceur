@@ -37,6 +37,28 @@
         }
 
         function getListByPage(page = 1) {
+            
+            $('#pagination').pagination({
+                dataSource: globalUrl+'/api/blflist/'+ page,
+                locator: 'items',
+                totalNumberLocator: function(response) {
+                    // you can return totalNumber by analyzing response content
+                    return Math.floor(Math.random() * (1000 - 100)) + 100;
+                },
+                pageSize: 10,
+                ajax: {
+                    beforeSend: function() {
+                        console.log('Loading data from flickr.com ...')
+                        // dataContainer.html('Loading data from flickr.com ...');
+                    }
+                },
+                callback: function(data, pagination) {
+                    // template method of yourself
+                    console.log(data)
+                    //dataContainer.html(html);
+                }
+            })
+
             $.ajax({
                 method : 'GET'
                 ,url : globalUrl+'/api/blflist/'+ page
@@ -66,10 +88,10 @@
                             
                             + "</tr>")
                     }
-                    $('#pagination').append('<ul></ul>')
-                    for (var i =0; i < blflist['pagination']['max']; i++) {
-                        $('#pagination').find('ul').append('<li>'+i+'</li>')
-                    }
+                    //$('#pagination').append('<ul></ul>')
+                    //for (var i =0; i < blflist['pagination']['max']; i++) {
+                        //$('#pagination').find('ul').append('<li>'+i+'</li>')
+                    //}
                 }
             });
         }

@@ -312,8 +312,8 @@ WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) o
     for data in blf_lists:
         if my_pagination is None:
             my_pagination = {
-                'nb_blf'            : f"{data.nb_blf}"
-                , "max"             : math.ceil((data.nb_blf) /10)
+                'totalNumber'            : f"{data.nb_blf}"
+                , "pageSize"             : math.ceil((data.nb_blf) /10)
                 , "currentPage"     :   PageNo
             } 
         my_datas.append({
