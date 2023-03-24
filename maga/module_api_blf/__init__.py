@@ -298,12 +298,12 @@ from(
             , (select COUNT(*)  from aya_magasin_tache_table)  as nb_blf
 	, ROW_NUMBER() over (order by numblf) as RowNum
 	from [aya_magasin_tache_table]
-    
+
     --end-sql"""
 
     search_by_value = None
     if 'search_by_value' in request.args:
-        search_by_value = search_by_value['search_by_value']
+        search_by_value = request.args['search_by_value']
         sql += f"""--begin-sql
             where numblf like '%{search_by_value}%'
         --end-sql"""
