@@ -7,9 +7,12 @@ class Repository :
         self.cursor = self.conn.cursor()
 
     def getList(self, sql):
-        self.cursor.execute(sql)
-        data = self.cursor.fetchall()
-        return data
+        try:
+            self.cursor.execute(sql)
+            data = self.cursor.fetchall()
+            return data
+        except:
+            return None
     
     def getOnFromDb(self, sql):
         cursor =  self.cursor

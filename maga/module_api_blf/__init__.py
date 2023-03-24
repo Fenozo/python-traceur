@@ -231,6 +231,8 @@ def route_blf(page_0=1):
     PageNo = int(page_0)
     if 'pageNumber' in request.args:
         PageNo = int(request.args['pageNumber'])
+
+
     liste = []
 
     repository = Repository()
@@ -296,9 +298,21 @@ from(
             , (select COUNT(*)  from aya_magasin_tache_table)  as nb_blf
 	, ROW_NUMBER() over (order by numblf) as RowNum
 	from [aya_magasin_tache_table]
-)T 
-WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) order by T.RowNum ASC
---WHERE T.RowNum BETWEEN ((@PageNo-1) * @PageSize)+1 AND (@PageNo * @PageSize) order by id_traceur ASC
+    
+    --end-sql"""
+
+    search_by_value = None
+    if 'search_by_value' in request.args:
+        search_by_value = search_by_value['search_by_value']
+        sql += f"""--begin-sql
+            where numblf like '%{search_by_value}%'
+        --end-sql"""
+
+    sql += """
+    --begin-sql
+    )T 
+    WHERE T.RowNum BETWEEN (({PageNo-1}) * @PageSize)+1 AND ({PageNo} * @PageSize) order by T.RowNum ASC
+    --WHERE T.RowNum BETWEEN ((@PageNo-1) * @PageSize)+1 AND (@PageNo * @PageSize) order by id_traceur ASC
 
 
         --end-sql
