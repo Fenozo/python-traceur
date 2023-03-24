@@ -301,12 +301,12 @@ from(
 
     --end-sql"""
 
-    search_by_value = None
-    if 'search_by_value' in request.args:
-        search_by_value = request.args['search_by_value']
-        sql += f"""--begin-sql
-            where numblf like '%{search_by_value}%'
-        --end-sql"""
+    # search_by_value = None
+    # if 'search_by_value' in request.args:
+    #     search_by_value = request.args['search_by_value']
+    #     sql += f"""--begin-sql
+    #         where numblf like '%{search_by_value}%'
+    #     --end-sql"""
 
     sql += """
     --begin-sql
