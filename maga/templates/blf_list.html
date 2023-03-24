@@ -22,6 +22,9 @@
                         client  = blflist['data'][i].client
                         nblg    = blflist['data'][i].nblg
                         adv     = blflist['data'][i].saisie
+                        statut = blflist['data'][i].statut
+                        province = blflist['data'][i].province
+                        district = blflist['data'][i].district
                         //console.log(blflist['data'][i])
                         $('#blf-list').append("<tr>"
                             + "<td>" + id + "</td>"
@@ -29,10 +32,39 @@
                             + "<td>" + nblg + "</td>"
                             + "<td>" + client + "</td>"
                             + "<td>" + adv + "</td>"
+                            + "<td>" + getEtat(statut) + "</td>"
+                            + "<td>" + province +' '+ district + "</td>"
                             + "</tr>")
                     }
                 }
             });
+        }
+
+        function getEtat(status) {
+            etat = ''
+            switch(parseInt(status)){
+                case 1:
+                    etat = 'Début ramassage'
+                break;
+                case 2:
+                    etat = 'Fin ramassage'
+                break;
+                case 3:
+                    etat = 'Début emballage'
+                break;
+                case 4:
+                    etat = 'Fin emballage'
+                break;
+
+                case 5:
+                    etat = 'Prépa expédition'
+                break;
+
+                case 6:
+                    etat = 'Expédition'
+                break;
+            }
+            return etat
         }
 
     })
@@ -53,6 +85,8 @@
                             <th>NB Lg</th>
                             <th>Client</th>
                             <th>ADV</th>
+                            <th>Etat</th>
+                            <th>PROVINCE/DISTRICT</th>
                         </tr>
                     </thead>
                     <tbody id="blf-list"></tbody>
