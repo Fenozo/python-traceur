@@ -55,5 +55,20 @@ WHERE T.RowNum BETWEEN ((@PageNo-1) * @PageSize)+1 AND (@PageNo * @PageSize) ord
 select COUNT(*)/10 + 1
 from [aya_magasin_tache_table]
 -------------------------------------------------------------------------------
+
+
+CREATE TABLE dbo.Aya_user
+	(
+	name nchar(150) NULL,
+	prename nchar(30) NULL,
+	password nchar(250) NOT NULL,
+	[user_id] [int] IDENTITY(1,1) NOT NULL,
+	PRIMARY KEY CLUSTERED 
+		(
+			[user_id] ASC
+		)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY =  OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+		) ON [PRIMARY]
 	
+GO
+
 

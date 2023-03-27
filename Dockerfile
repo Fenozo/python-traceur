@@ -46,6 +46,8 @@ RUN python -m pip install simple-websocket
 
 RUN python -m pip install pytz
 
+RUN python -m pip install bcrypt
+
 
 
 COPY ./requirements.txt /var/www/requirements.txt

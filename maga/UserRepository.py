@@ -12,3 +12,13 @@ class UserRepository(Repository):
         --end-sql"""
         print(sql)
         return self.checked(sql=sql)
+    
+
+    def register(self, _name='', _prename='', _password=''):
+        
+        sql =f"""
+            insert into dbo.Aya_user
+            (name, prename, [password]) values('{_name}', '{_prename}','{_password}')
+        """
+
+        return self.executeSql(sql=sql)
