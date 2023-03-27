@@ -237,15 +237,6 @@ def route_blf(page_0=1):
     liste = []
 
     repository = Repository()
-
-    sql_wehre_search_exist = ''
-    # search_by_value = None
-    if 'search_by_value' in request.args:
-        search_by_value = request.args['search_by_value']
-        sql_wehre_search_exist =  f"""--begin-sql
-            where numblf like '%{search_by_value}%'
-        --end-sql"""
-
     # conn = db.get_instance()
     # cursor = conn.cursor()
     sql = f"""--begin-sql 
@@ -305,7 +296,18 @@ from(
             , montant_ca_brut
             , nblh
             , lieu_stockage
-            , (select COUNT(*)  from aya_magasin_tache_table {sql_wehre_search_exist})  as nb_blf
+            , (select COUNT(*)  from aya_magasin_tache_table
+        --end-sql"""
+    
+    # search_by_value = None
+    if 'search_by_value' in request.args:
+        search_by_value = request.args['search_by_value']
+        sql = sql + f"""--begin-sql
+            where numblf like '%{search_by_value}%'
+        --end-sql"""
+
+    sql = sql + f"""--begin-sql
+            )  as nb_blf
 	, ROW_NUMBER() over (order by numblf) as RowNum
 	from [aya_magasin_tache_table]
 
