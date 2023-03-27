@@ -19,8 +19,8 @@ def user_list():
 @web_user.route("/web/user/inscription")
 def user_register():
     if 'name' in request.args and 'password' in request.args:
-        name = int(request.args['name'])
-        password = int(request.args['password'])
+        name = request.args['name']
+        password = request.args['password']
         print({
             'name' : name
             ,'password' : password
