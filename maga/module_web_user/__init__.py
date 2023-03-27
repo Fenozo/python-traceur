@@ -14,3 +14,8 @@ objectSession = SessionService(session=session)
 @web_user.route('/web/user/list')
 def user_list():
     return render_template('user_list.html')
+
+
+@web_user.route("/web/user/inscription")
+def user_register():
+    return render_template('users/user_register.html')
