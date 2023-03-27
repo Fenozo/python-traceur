@@ -57,7 +57,7 @@
                 pageSize: 10,
                 ajax: {
                     beforeSend: function() {
-                        //$('#blf-list').html("");
+                        $('#blf-list').html("");
                         $('#blf-list').append("<tr>"
                             + '<td colspan="8"><div class="flex-j-center"> Veuillez patienter s\'il vous plait les données vont être affichées ... </div></td>'
                             + "</tr>")
@@ -67,7 +67,7 @@
                 },
                 callback: function(items, pagination) {
                     // template method of yourself
-                    //$('#blf-list').html("");
+                    $('#blf-list').html("");
                     for (var i = 0; i < items.length; i++) {
                         id      = items[i].id
                         numblf  = items[i].NumBlf
