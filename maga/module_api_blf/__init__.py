@@ -305,6 +305,7 @@ from(
         sql = sql + f"""--begin-sql
             where numblf like '%{search_by_value}%'
             or Rs like '%{search_by_value}%'
+            or MatSaisie  like '%{search_by_value}%'
         --end-sql"""
 
     sql = sql + f"""--begin-sql
@@ -320,6 +321,7 @@ from(
         sql = sql + f"""--begin-sql
             where numblf like '%{search_by_value}%' 
             or Rs like '%{search_by_value}%'
+            or MatSaisie  like '%{search_by_value}%'
         --end-sql"""
 
     sql = sql + f"""
