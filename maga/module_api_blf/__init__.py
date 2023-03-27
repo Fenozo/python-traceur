@@ -304,6 +304,7 @@ from(
         search_by_value = request.args['search_by_value']
         sql = sql + f"""--begin-sql
             where numblf like '%{search_by_value}%'
+            or Rs like '%{search_by_value}%'
         --end-sql"""
 
     sql = sql + f"""--begin-sql
@@ -317,7 +318,8 @@ from(
     if 'search_by_value' in request.args:
         search_by_value = request.args['search_by_value']
         sql = sql + f"""--begin-sql
-            where numblf like '%{search_by_value}%'
+            where numblf like '%{search_by_value}%' 
+            or Rs like '%{search_by_value}%'
         --end-sql"""
 
     sql = sql + f"""
