@@ -7,21 +7,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Register ! </h1>
-                <form action = "http://192.168.123.254:9000/web/user/inscription" 
-                    method = "GET">
-                    
-                    <div>
-                        <label>Entrer votre nom :</label>
-                        <input type = "text" name = "name" />
-                    </div>
+                <div style="width:400px">
+                    <h1>Inscription ! </h1>
+                    <form method = "GET">
+                        <div class="form-goup">
+                            <label>Entrer votre nom :</label>
+                            <input class="form-control" type = "text" name = "name" />
+                        </div>
 
-                    <div>
-                        <label>Enter Password :</label>
-                        <input type = "text" name = "password" />
-                    </div>
-                    <p><input type = "submit" value = "Enregistrer" /></p>
-                </form>   
+                        <div class="form-goup">
+                            <label>Entrer votre mot de passe :</label>
+                            <input class="form-control" type = "text" name = "password" />
+                        </div>
+                        <div class="form-goup">
+                            <input type = "submit" value = "Enregistrer" />
+                        </div>
+                    </form> 
+                </div>  
             </div>
         </div>
     </div>
