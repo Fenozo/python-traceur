@@ -57,7 +57,11 @@
                 pageSize: 10,
                 ajax: {
                     beforeSend: function() {
-                        console.log('Loading data from flickr.com ...')
+                        $('#blf-list').html("");
+                        $('#blf-list').append("<tr>"
+                            + '<td colspan="8"><div> Veuillez patienter s\'il vous plait les données vont être affichées ... </div></td>'
+                            + "</tr>")
+                        console.log("Veuillez patienter s'il vous plait les données vont être affichées ...")
                         // dataContainer.html('Loading data from flickr.com ...');
                     }
                 },
