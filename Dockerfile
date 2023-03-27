@@ -44,6 +44,8 @@ RUN python -m pip install Flask-Session
 
 RUN python -m pip install simple-websocket
 
+RUN python -m pip install pytz
+
 
 
 COPY ./requirements.txt /var/www/requirements.txt

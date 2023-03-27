@@ -1,5 +1,6 @@
 from datetime import datetime
 from maga.Repository import Repository
+import pytz
 
 class BlfRepository(Repository):
     def __init__(self, *args, **kwargs):
@@ -25,7 +26,8 @@ class BlfRepository(Repository):
     def getDateUpdate(self):
             now = datetime.now()
             self.datetimeformat = "%Y-%m-%d %H:%M.%S"
-            self.measurementDateTime = now.strftime(self.datetimeformat)
+            tz = pytz.timezone('Indian/Antananarivo')
+            self.measurementDateTime = now(tz=tz).strftime(self.datetimeformat)
 
 
     def getDataList(self, userId='', table_name='[Commerciale].[dbo].[aya_magasin_tache_table]'):
